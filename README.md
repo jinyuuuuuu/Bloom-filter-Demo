@@ -1,6 +1,6 @@
 ###简介
 
-这个非常简单的Demo主要使用了Redis实现的Token认证登录（原始项目来自[3]），并且使用BloomFilter解决了Redis的缓存穿透问题，主要用的是Google的Hashing方法与Funnel，具体方法还请看代码
+这个非常简单的Demo主要使用了Redis实现的Token认证登录（[原始项目来自][1]），并且使用BloomFilter解决了Redis的缓存穿透问题，主要用的是Google的Hashing方法与Funnel，具体方法还请看代码
 
 ###演示方式
 
