@@ -1,16 +1,13 @@
 ###简介
 
-关于Demo的介绍可以参考[RESTful登录设计（基于Spring及Redis的Token鉴权）][1]
+这个非常简单的Demo主要使用了Redis实现的Token认证登录（原始项目来自[3]），并且使用BloomFilter解决了Redis的缓存穿透问题，主要用的是Google的Hashing方法与Funnel，具体方法还请看代码
 
 ###演示方式
 
- 1. 下载该项目并修改application.properties文件，将MySQL和Redis的信息修改为自己的配置
- 2. 打开init.sql文件，将其中的sql语句在MySQL中运行
- 3. 通过mvn spring-boot:run启动项目，如果日志输出Started Application in 8.112 seconds (JVM running for 14.491)说明启动成功
- 4. 浏览器打开localhost:8080，可以看到swagger-ui的主页
- 5. 演示登录：在该页面打开POST tokens/，在username项输入admin、password项输入password，点击Try it out！，查看返回结果得到userId和token
- 6. 演示退出登录：在该页面打开DELETE tokens/，在authorization中填写用userId和token以"_"拼接得到的字符串，点击Try it out！，如果返回码为200则成功。重复一次操作，返回码将变为401
-
+ 1.按照实体类建表之后插入数据首先调用addAllDataToBloomFilter接口将数据库所有数据（以nickname为键）放入布隆过滤器
+ 2.为接口加上@Authorization注释就可以让拦截器拦截该接口
+ 3.由于将原项目的Springboot版本改为了2.1.1，对RedisTemplate的初始化配置与序列化方式我都放在了RedisConfig中，通过在Config中Bean注入再用@Resource或者@Autowired注解来找到相应的RedisTemplate
+ （不知道是不是这么理解的，要是不对可以告诉我一下）
 ###可能会遇到的问题：
 
 **java.lang.ClassNotFoundException: org.jboss.jandex.IndexView**
@@ -24,8 +21,9 @@
     <version>1.1.0.Final</version>
 </dependency>
 ```
-
+**第一次使用GITHUB上传代码，我也不知会不会，可能在MAVEN配置里会出现<artifactId>不匹配的问题，要是会的话把项目名改一下就好了**
 
 
 [1]:http://www.scienjus.com/restful-token-authorization/
 [2]:https://github.com/ScienJus/spring-authorization-manager
+[3]:githubhttps://github.com/ScienJus/spring-restful-authorization
