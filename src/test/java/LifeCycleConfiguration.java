@@ -7,4 +7,12 @@ public class LifeCycleConfiguration {
     public ProductTest productTest(){
         return new ProductTest();
     }
+    @Bean(initMethod = "MyInitMethod",destroyMethod = "MyDestroyMethod")
+    public BeanLifeTest beanLifeTest(){
+        return new BeanLifeTest();
+    }
+    @Bean
+    public MyBeanPostProcessor myBeanPostProcessor(){
+        return new MyBeanPostProcessor();
+    }
 }
