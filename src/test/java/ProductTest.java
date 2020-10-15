@@ -57,9 +57,29 @@ public class ProductTest implements BeanFactoryAware ,BeanNameAware {
 
     @Autowired(required = false)
     private RabbitTemplate rabbitTemplate;
+
+    /**
+     * 直接模式
+     */
     @Test
-    public void sendMessage(){
+    public void sendMessageDirect(){
         //假如要用String来传Message，那么一定要用convertAndSend方法
         rabbitTemplate.convertAndSend("T1","i'm sending message to you");
+    }
+
+    /**
+     * 分裂模式
+     */
+    @Test
+    public void sendMessageFanout(){
+        rabbitTemplate.convertAndSend("fanoutModeExchange","","i'm sending message through fanoutMode(QueueName)");
+    }
+
+    /**
+     * 主题模式
+     */
+    @Test
+    public void sendMessageTopic(){
+        rabbitTemplate.convertAndSend("topicModeExchange","good.log","i'm sending message through topic mode");
     }
 }
