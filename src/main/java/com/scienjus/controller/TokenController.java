@@ -73,11 +73,11 @@ public class TokenController {
         return ResultModel.ok(jsonObject).finish();
     }
 
-    @PostMapping("/addAllDataToBloomFilter")
+    /*@PostMapping("/addAllDataToBloomFilter")
     public Map<String,Object> addAllDataToBloomFilter(){
         String s = userService.addAllDataToBloomFilter();
         return ResultModel.ok(s).finish();
-    }
+    }*/
     @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
     @Authorization
     @ApiOperation(value = "退出登录")

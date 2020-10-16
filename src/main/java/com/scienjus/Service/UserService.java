@@ -8,6 +8,10 @@ public interface UserService {
 
 
     String findByNickyName(String name);
+/*
+    String addAllDataToBloomFilter();*/
 
-    String addAllDataToBloomFilter();
+    void sendSms(String phoneNum);
+
+    void JdkProxyTest();
 }

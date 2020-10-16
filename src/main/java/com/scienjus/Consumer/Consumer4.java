@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 public class Consumer4 {
     @RabbitHandler
     public void getMessage(String msg){
-        System.out.println("I'm consuming from topic mode:" +msg);
+        System.out.println("[Consumer]您的短信验证码为：" +msg);
     }
 }
