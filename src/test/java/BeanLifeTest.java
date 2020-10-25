@@ -1,10 +1,18 @@
+import com.scienjus.Application;
+import com.scienjus.Utils.DependencyA;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 public class BeanLifeTest implements BeanNameAware,BeanFactoryAware,ApplicationContextAware,InitializingBean,DisposableBean {
     private String MyName;
 
@@ -83,12 +91,12 @@ public class BeanLifeTest implements BeanNameAware,BeanFactoryAware,ApplicationC
     public void MyDestroyMethod(){
         System.out.println("自定义Bean销毁方法");
     }
-
-
+    @Autowired
+    private DependencyA dependencyA;
     @Test
     public void test(){
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(LifeCycleConfiguration.class);
-        context.getBean("beanLifeTest");
-        context.close();
+        ApplicationContext context = new AnnotationConfigApplicationContext(LifeCycleConfiguration.class);
+        ((AnnotationConfigApplicationContext) context).close();
+        dependencyA.sout();
     }
 }
